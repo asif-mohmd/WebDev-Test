@@ -1,3 +1,4 @@
+// @ts-ignore
 const { Collection, ObjectId } = require('mongodb');
 var db=require('../config/connection')
 var collection=require('../config/collections')
@@ -15,6 +16,7 @@ module.exports={
 
     },
     getAllProducts:()=>{
+        // @ts-ignore
         return new Promise(async (resolve,reject)=>{
             let product=await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
             resolve(product)
@@ -22,22 +24,27 @@ module.exports={
     },
 
     deleteProduct:(prodId)=>{
+        // @ts-ignore
         return new Promise((resolve,reject)=>{
-            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:objectId(prodId)}).then((response)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:new objectId(prodId)}).then((response)=>{
                 
                 resolve(response)
             })
         })
     },
     getProductDetails:(prodId)=>{
+        // @ts-ignore
         return new Promise((resolve,reject)=>{
+            // @ts-ignore
             db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:objectId(prodId)}).then((product)=>{
                 resolve(product)
         })
         })
     },
     updateProduct:(proId,ProDetails)=>{
+        // @ts-ignore
         return new Promise((resolve,reject)=>{
+            // @ts-ignore
             db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(proId)},{
                 $set:{
                     Name:ProDetails.Name,
@@ -46,6 +53,7 @@ module.exports={
                     Category:ProDetails.Category 
                 }
 
+            // @ts-ignore
             }).then((response)=>{
                 resolve()
             })

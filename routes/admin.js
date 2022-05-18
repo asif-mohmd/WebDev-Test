@@ -1,9 +1,11 @@
+// @ts-ignore
 const { response } = require('express');
 var express = require('express');
 var router = express.Router();
 var productHelpers=require('../helpers/product-helpers')
 
 /* GET users listing. */
+// @ts-ignore
 router.get('/', function(req, res, next) {
 
 
@@ -16,15 +18,18 @@ router.get('/', function(req, res, next) {
 
 });
 
+// @ts-ignore
 router.get('/add-product',(req,res)=>{
   res.render('admin/add-product');
   
 })
+// @ts-ignore
 router.post('/add-product',(req,res,next)=>{
   
   productHelpers.addProduct(req.body,(id)=>{
     let image=req.files.Image
     
+    // @ts-ignore
     image.mv('./public/product-images/'+id+'.jpg',(err,done)=>{
       if(!err){
         res.render('admin/add-product')
@@ -41,6 +46,7 @@ router.post('/add-product',(req,res,next)=>{
 router.get('/delete-product/:id',(req,res)=>{
   let proId=req.params.id
   console.log(proId)
+  // @ts-ignore
   productHelpers.deleteProduct(proId).then((response)=>{
     res.redirect('/admin/')
   })
@@ -61,6 +67,7 @@ router.post('/edit-product/:id',(req,res)=>{
     res.redirect('/admin')
     if(req.files.image){
       let image=req.files.image
+      // @ts-ignore
       image.mv('./public/product-images/'+id+'.jpg')
      
 
